@@ -1,12 +1,12 @@
 from rest_framework.views import APIView, Request, Response, status
+from rest_framework.generics import CreateAPIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
+from django.shortcuts import get_object_or_404
 from .models import User
 from .serializers import UserSerializer, LoginSerializer
 from .permissions import IsAccountOwner
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth import authenticate
-from rest_framework_simplejwt.tokens import RefreshToken
-from django.shortcuts import get_object_or_404
 
 
 class LoginView(APIView):
@@ -34,17 +34,9 @@ class LoginView(APIView):
         return Response(token_dict, status.HTTP_200_OK)
 
 
-class UserView(APIView):
-    def post(self, request: Request) -> Response:
-        """
-        Registro de usuários
-        """
-        serializer = UserSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        serializer.save()
-
-        return Response(serializer.data, status.HTTP_201_CREATED)
+class UserView(CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class UserDetailView(APIView):
