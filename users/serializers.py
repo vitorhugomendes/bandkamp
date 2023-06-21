@@ -3,16 +3,6 @@ from rest_framework.validators import UniqueValidator
 from .models import User
 
 
-class LoginSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ["username", "password"]
-        extra_kwargs = {
-            "username": {"write_only": True},
-            "password": {"write_only": True},
-        }
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
