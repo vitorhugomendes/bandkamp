@@ -3,7 +3,7 @@
 ## Endpoints:
 
 https://bandkamp-3pqs.onrender.com/api/docs/swagger-ui/#/
-##
+
 (o render pode demorar um pouco para "acordar", atualize a página depois de alguns minutos)
 
 ## Instalação dos pacotes de teste
